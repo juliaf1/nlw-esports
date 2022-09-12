@@ -1,12 +1,7 @@
-"use strict";
 // const express = require('express');
 // Node liberou acesso ao ECMA Script Modules de forma nativa
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const app = (0, express_1.default)();
+import express from 'express';
+const app = express();
 app.get('/ads', () => {
     console.log('GET /ads');
 });
