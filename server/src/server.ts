@@ -5,8 +5,12 @@ import express from 'express';
 
 const app = express();
 
-app.get('/ads', () => {
+app.get('/ads', (req, res) => {
     console.log('GET /ads');
+    return res.json([
+        { "id": 1 },
+        { "id": 2 }
+    ])
 });
 
 app.listen(3333, () => {
