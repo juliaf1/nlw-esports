@@ -6,6 +6,8 @@ function App() {
   return (
     <div className="max-w-{1344px} mx-auto flex items-center flex-col py-20">
       <img src={logoImg} />
+
+      <h1 className="text-6xl text-white font-black mt-20">Seu duo está aqui.</h1>
     </div>
   )
 }
