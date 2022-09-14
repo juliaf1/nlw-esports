@@ -1,3 +1,5 @@
+import './styles/main.css';
+
 // Componentes + Propriedades
 // Componentes são compostos de funções que retornam HTML
 
