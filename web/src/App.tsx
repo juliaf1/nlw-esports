@@ -1,8 +1,11 @@
 import './styles/main.css';
 
+import logoImg from './assets/logo.svg';
+
 function App() {
   return (
-    <div className="w-8 h-8 bg-violet-200">
+    <div className="max-w-{1344px} mx-auto flex items-center flex-col py-20">
+      <img src={logoImg} />
     </div>
   )
 }
