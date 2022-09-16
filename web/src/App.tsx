@@ -1,10 +1,25 @@
+import { useState, useEffect } from 'react';
+
 import './styles/main.css';
 
 import logoImg from './assets/logo.svg';
 import { GameCard } from './components/GameCard';
 import { CreateAdBanner } from './components/CreateAdBanner';
 
+// useEffect(() => {}, []); useEffect syntax structure
+// parameters: result, [list of useStates that trigger that result]
+
+const API_URL = 'http://localhost:3333'
+
 function App() {
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    fetch(API_URL + '/games')
+      .then(res => res.json())
+      .then(data => console.log(data))
+  }, []) // empty array = result is triggered one time!
+
   return (
     <div className="max-w-{1344px} mx-auto flex items-center flex-col py-20 px-20">
       <img src={logoImg} />
