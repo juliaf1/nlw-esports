@@ -25,20 +25,33 @@ app.get('/games', async (req, res) => {
     return res.json(games);
 });
 
-app.get('/games/:id/ads', (req, res) => {
+app.get('/games/:id/ads', async (req, res) => {
     consoleRequest(req);
 
     const { id } = req.params;
 
-    return res.json([]);
+    const ads = await prisma.ad.findMany({
+        where: {
+            gameId: id,
+        }
+    });
+
+    return res.json(ads);
 });
 
-app.get('/ads/:id/discord', (req, res) => {
+app.get('/ads/:id/discord', async (req, res) => {
     consoleRequest(req);
 
     const { id } = req.params;
 
-    return res.json([]);
+    const discord = await prisma.ad.findFirst({
+        select: {
+            discord: true,
+        },
+        where: { id },
+    });
+
+    return res.json(discord);
 });
 
 app.post('/ads', (req, res) => {
