@@ -4,7 +4,11 @@
 import express from 'express';
 import { Prisma, PrismaClient } from '@prisma/client';
 
+import { convertMinutesToTimeString, convertTimeStringToMinutes } from './utils/parse-time';
+
 const app = express();
+app.use(express.json());
+
 const prisma = new PrismaClient({
     log: ['query'],
 });
@@ -28,15 +32,9 @@ app.get('/games', async (req, res) => {
 app.get('/games/:id/ads', async (req, res) => {
     consoleRequest(req);
 
-    function parseHour(minutes: number) {
-        const hour = Math.floor(minutes / 60)
-        let min = minutes % 60
-        return `${hour}:${min === 0 ? '00' : min}`
-    }
-
     const { id } = req.params;
 
-    const ads = await prisma.ad.findMany({
+    const ads: any = await prisma.ad.findMany({
         select: {
             id: true,
             name: true,
@@ -54,11 +52,11 @@ app.get('/games/:id/ads', async (req, res) => {
         }
     });
 
-    const formattedAd = ads.map (ad => {
+    const formattedAd: any = ads.map ((ad: any) => {
         return({
             ...ad,
-            hourStart: parseHour(ad.hourStart),
-            hourEnd: parseHour(ad.hourEnd),
+            hourStart: convertMinutesToTimeString(ad.hourStart),
+            hourEnd: convertMinutesToTimeString(ad.hourEnd),
         });
     });
 
@@ -80,10 +78,22 @@ app.get('/ads/:id/discord', async (req, res) => {
     return res.json({ discord: ad.discord });
 });
 
-app.post('/ads', (req, res) => {
+app.post('/games/:id/ads', async (req, res) => {
     consoleRequest(req);
 
-    return res.status(201).json({});
+    const gameId = req.params.id;
+    const body = req.body;
+
+    const ad = await prisma.ad.create({
+        data: {
+            ...body,
+            hourStart: convertTimeStringToMinutes(body.hourStart),
+            hourEnd: convertTimeStringToMinutes(body.hourEnd),
+            gameId
+        }
+    });
+
+    return res.status(201).json(ad);
 });
 
 
