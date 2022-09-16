@@ -11,13 +11,22 @@ import { CreateAdBanner } from './components/CreateAdBanner';
 
 const API_URL = 'http://localhost:3333'
 
+interface Game {
+  id: string;
+  title: string;
+  bannerUrl: string;
+  _count: {
+    ads: number;
+  }
+}
+
 function App() {
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
     fetch(API_URL + '/games')
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => setGames(data))
   }, []) // empty array = result is triggered one time!
 
   return (
@@ -29,7 +38,17 @@ function App() {
       </h1>
 
       <div className="grid grid-cols-6 gap-6 mt-16">
-        <GameCard bannerUrl="" title="" adsCount={1} />
+        { games.slice(0, 6).map(game => {
+            return(
+              <GameCard
+                key={game.id}
+                bannerUrl={game.bannerUrl}
+                title={game.title}
+                adsCount={game._count.ads}
+              />
+            )
+          })
+        }
       </div>
 
       <CreateAdBanner />
