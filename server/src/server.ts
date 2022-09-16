@@ -2,13 +2,19 @@
 // Node liberou acesso ao ECMA Script Modules de forma nativa
 
 import express from 'express';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const app = express();
+const prisma = new PrismaClient({
+    log: ['query'],
+});
 
-app.get('/games', (req, res) => {
+app.get('/games', async (req, res) => {
     consoleRequest(req);
+    
+    const games = await prisma.game.findMany();
 
-    return res.json([]);
+    return res.json(games);
 });
 
 app.get('/games/:id/ads', (req, res) => {
