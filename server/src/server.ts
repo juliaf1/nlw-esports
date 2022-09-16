@@ -28,15 +28,41 @@ app.get('/games', async (req, res) => {
 app.get('/games/:id/ads', async (req, res) => {
     consoleRequest(req);
 
+    function parseHour(minutes: number) {
+        const hour = Math.floor(minutes / 60)
+        let min = minutes % 60
+        return `${hour}:${min === 0 ? '00' : min}`
+    }
+
     const { id } = req.params;
 
     const ads = await prisma.ad.findMany({
+        select: {
+            id: true,
+            name: true,
+            weekDays: true,
+            useVoiceChannel: true,
+            yearsPlaying: true,
+            hourStart: true,
+            hourEnd: true
+        },
         where: {
             gameId: id,
+        },
+        orderBy: {
+            createdAt: 'desc',
         }
     });
 
-    return res.json(ads);
+    const formattedAd = ads.map (ad => {
+        return({
+            ...ad,
+            hourStart: parseHour(ad.hourStart),
+            hourEnd: parseHour(ad.hourEnd),
+        });
+    });
+
+    return res.json(formattedAd);
 });
 
 app.get('/ads/:id/discord', async (req, res) => {
