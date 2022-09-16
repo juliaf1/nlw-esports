@@ -2,12 +2,15 @@
 // Node liberou acesso ao ECMA Script Modules de forma nativa
 
 import express from 'express';
-import { Prisma, PrismaClient } from '@prisma/client';
+import cors from 'cors';
+
+import { PrismaClient } from '@prisma/client';
 
 import { convertMinutesToTimeString, convertTimeStringToMinutes } from './utils/parse-time';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const prisma = new PrismaClient({
     log: ['query'],
