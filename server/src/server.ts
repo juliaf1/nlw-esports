@@ -70,14 +70,14 @@ app.get('/ads/:id/discord', async (req, res) => {
 
     const { id } = req.params;
 
-    const discord = await prisma.ad.findFirst({
+    const ad = await prisma.ad.findUniqueOrThrow({
         select: {
             discord: true,
         },
         where: { id },
     });
 
-    return res.json(discord);
+    return res.json({ discord: ad.discord });
 });
 
 app.post('/ads', (req, res) => {
