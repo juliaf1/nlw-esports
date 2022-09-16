@@ -5,13 +5,38 @@ import express from 'express';
 
 const app = express();
 
-app.get('/ads', (req, res) => {
-    console.log('GET /ads');
-    return res.json([
-        { "id": 1 },
-        { "id": 2 }
-    ])
+app.get('/games', (req, res) => {
+    consoleRequest(req);
+
+    return res.json([]);
 });
+
+app.get('/games/:id/ads', (req, res) => {
+    consoleRequest(req);
+
+    const { id } = req.params;
+
+    return res.json([]);
+});
+
+app.get('/ads/:id/discord', (req, res) => {
+    consoleRequest(req);
+
+    const { id } = req.params;
+
+    return res.json([]);
+});
+
+app.post('/ads', (req, res) => {
+    consoleRequest(req);
+
+    return res.status(201).json({});
+});
+
+
+function consoleRequest(req: any) {
+    console.log(`GET ${req.url}`);
+};
 
 app.listen(3333, () => {
     console.log('Up on 3333');
