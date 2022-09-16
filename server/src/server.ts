@@ -12,7 +12,15 @@ const prisma = new PrismaClient({
 app.get('/games', async (req, res) => {
     consoleRequest(req);
     
-    const games = await prisma.game.findMany();
+    const games = await prisma.game.findMany({
+        include: {
+            _count: {
+                select: {
+                    ads: true,
+                }
+            }
+        }
+    });
 
     return res.json(games);
 });
