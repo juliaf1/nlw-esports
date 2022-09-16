@@ -4,36 +4,14 @@
 import express from 'express';
 import cors from 'cors';
 
-import { PrismaClient } from '@prisma/client';
-
-import { convertMinutesToTimeString, convertTimeStringToMinutes } from './utils/parse-time';
-import { consoleRequest } from './utils/log-request';
-
 import { createAd, getDiscord, listAds } from './controllers/ads_controller';
+import { listGames } from './controllers/games_controller';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const prisma = new PrismaClient({
-    log: ['query'],
-});
-
-app.get('/games', async (req, res) => {
-    consoleRequest(req);
-    
-    const games = await prisma.game.findMany({
-        include: {
-            _count: {
-                select: {
-                    ads: true,
-                }
-            }
-        }
-    });
-
-    return res.json(games);
-});
+app.get('/games', listGames);
 
 app.get('/games/:id/ads', listAds);
 
