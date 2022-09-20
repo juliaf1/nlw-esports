@@ -11,20 +11,28 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 32,
     marginTop: 28,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   logo: {
     width: 80,
-    height: 45
+    height: 45,
   },
   spacer: {
     width: 20,
-    height: 20
+    height: 20,
   },
   cover: {
     width: 311,
     height: 160,
     borderRadius: 8,
-    marginTop: 32
+    marginTop: 32,
+  },
+  containerList: {
+    width: '100%',
+  },
+  contentList: {
+    paddingLeft: 32,
+    paddingRight: 64,
+    alignItems: 'flex-start',
   },
 });

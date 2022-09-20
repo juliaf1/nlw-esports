@@ -71,6 +71,10 @@ export function Game() {
           renderItem={({item}) => (
             <DuoCard data={item} />
           )}
+          horizontal
+          style={styles.containerList}
+          contentContainerStyle={styles.contentList}
+          showsHorizontalScrollIndicator={false}
         />
       </SafeAreaView>
     </Background>
