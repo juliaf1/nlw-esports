@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, TouchableOpacity, Image, FlatList, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
@@ -76,8 +76,15 @@ export function Game() {
           )}
           horizontal
           style={styles.containerList}
-          contentContainerStyle={styles.contentList}
+          contentContainerStyle={!duos.length ? styles.emptyList : styles.contentList}
           showsHorizontalScrollIndicator={false}
+          ListEmptyComponent={() => {
+            return(
+              <Text style={styles.emptyListText}>
+                Ainda não existem anúncios publicados.
+              </Text>
+            )
+          }}
         />
       </SafeAreaView>
     </Background>
