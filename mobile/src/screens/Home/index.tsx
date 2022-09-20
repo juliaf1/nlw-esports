@@ -9,10 +9,14 @@ import { styles } from './styles';
 import { Heading } from '../../components/Heading';
 import { GameCard } from '../../components/GameCard';
 
+const BASE_URL = 'http://192.168.0.109:3333';
+
 export function Home() {
 
   useEffect(() => {
-    
+    fetch(`${BASE_URL}/games`)
+      .then(res => res.json())
+      .then(data => console.log(data))
   }, []);
 
   return(
