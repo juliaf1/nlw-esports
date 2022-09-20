@@ -1,5 +1,6 @@
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 
+import { THEME } from '../../theme';
 import { styles } from './styles';
 
 import { DuoInfo } from '../DuoInfo';
@@ -33,14 +34,18 @@ export function DuoCard({ data }: Props) {
 
       <DuoInfo
         label="Disponibilidade"
-        value={`${data.weekDays.length} dia(s)`}
+        value={`${data.weekDays.length} dia(s) \u2022 ${data.hourStart} - ${data.hourEnd}`}
       />
 
       <DuoInfo
         label="Chamada de áudio?"
         value={data.useVoiceChannel ? 'Sim' : 'Não'}
-        colorValue={data.useVoiceChannel ? '#34D399' : '#F87171'}
+        colorValue={data.useVoiceChannel ? THEME.COLORS.SUCCESS : THEME.COLORS.ALERT }
       />
+
+      <TouchableOpacity>
+        
+      </TouchableOpacity>
     </View>
   );
 };
