@@ -15,7 +15,9 @@ interface Game {
 };
 
 export function CreateAdModal() {
+  const days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
   const [games, setGames] = useState<Game[]>([]);
+  const [weekDays, setWeekDays] = useState<string[]>([]);
 
   useEffect(() => {
     fetch(API_URL + '/games')
@@ -68,62 +70,27 @@ export function CreateAdModal() {
             <div className="flex flex-col gap-2">
               <label htmlFor="weekDays" className="font-semibold">Quando costumar jogar?</label>
 
-              <ToggleGroup.Root type="multiple" className="grid grid-cols-4 gap-2">
-                <ToggleGroup.Item
-                    value="0"
-                  title="Domingo"
-                  className="w-8 h-8 rounded bg-zinc-900"
-                >
-                  D
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item
-                    value="1"
-                  title="Segunda"
-                  className="w-8 h-8 rounded bg-zinc-900"
-                >
-                  S
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item
-                    value="2"
-                  title="Terça"
-                  className="w-8 h-8 rounded bg-zinc-900"
-                >
-                  T
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item
-                    value="3"
-                    title="Quarta"
-                    className="w-8 h-8 rounded bg-zinc-900"
-                >
-                  Q
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item
-                    value="4"
-                    title="Quinta"
-                    className="w-8 h-8 rounded bg-zinc-900"
-                >
-                    Q
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item
-                    value="5"
-                    title="Sexta"
-                    className="w-8 h-8 rounded bg-zinc-900"
-                >
-                    S
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item
-                    value="6"
-                    title="Sábado"
-                    className="w-8 h-8 rounded bg-zinc-900"
-                >
-                    S
-                </ToggleGroup.Item>
+              <ToggleGroup.Root
+                type="multiple"
+                className="grid grid-cols-4 gap-2"
+                value={weekDays}
+                onValueChange={setWeekDays}
+              >
+                {
+                  days.map((day, index) => {
+                    const id = index.toString();
+                    return(
+                      <ToggleGroup.Item
+                        key={id}
+                        value={id}
+                        title={day}
+                        className={`w-8 h-8 rounded ${weekDays.includes(id) ? 'bg-violet-500' : 'bg-zinc-900'}`}
+                      >
+                        {day[0]}
+                      </ToggleGroup.Item>
+                    );
+                  })
+                }
               </ToggleGroup.Root>
             </div>
           
