@@ -1,6 +1,9 @@
 import { useState, useEffect, FormEvent } from 'react';
+import axios from 'axios';
+
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
+
 import { GameController, Check } from 'phosphor-react';
 
 import { Input } from './Form/Input';
@@ -21,9 +24,8 @@ export function CreateAdModal() {
   const [useVoiceChannel, setUseVoiceChannel] = useState(false);
 
   useEffect(() => {
-    fetch(API_URL + '/games')
-      .then(res => res.json())
-      .then(data => setGames(data))
+    axios.get(API_URL + '/games')
+      .then(res => setGames(res.data));
   }, []);
 
   function handleCreateAd(event: FormEvent) {

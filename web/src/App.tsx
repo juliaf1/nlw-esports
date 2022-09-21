@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import * as Dialog from '@radix-ui/react-dialog';
 
 import './styles/main.css';
-
 import logoImg from './assets/logo.svg';
+
 import { GameCard } from './components/GameCard';
 import { CreateAdBanner } from './components/CreateAdBanner';
 import { CreateAdModal } from './components/CreateAdModal';
@@ -26,9 +28,8 @@ function App() {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    fetch(API_URL + '/games')
-      .then(res => res.json())
-      .then(data => setGames(data))
+    axios.get(API_URL + '/games')
+      .then(res => setGames(res.data));
   }, []) // empty array = result is triggered one time!
 
   return (
