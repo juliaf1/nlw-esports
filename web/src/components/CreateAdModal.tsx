@@ -1,18 +1,27 @@
+import { useState, useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
-import * as Select from '@radix-ui/react-select';
-import { GameController, Check, CaretUp, CaretDown } from 'phosphor-react';
+import { GameController, Check } from 'phosphor-react';
 
 import { Input } from './Form/Input';
+import { Select } from './Form/Select';
 
-interface CreateAdProps {
-  games: {
-    id: string;
-    title: string;
-  }[];
+const API_URL = 'http://localhost:3333'
+
+interface Game {
+  id: string;
+  title: string;
 };
 
-export function CreateAdModal({ games }: CreateAdProps) {
+export function CreateAdModal() {
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    fetch(API_URL + '/games')
+      .then(res => res.json())
+      .then(data => setGames(data))
+  }, []);
+
   return(
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
@@ -24,46 +33,7 @@ export function CreateAdModal({ games }: CreateAdProps) {
           <div className="flex flex-col gap-2">
             <label htmlFor="game" className="font-semibold">Qual o game?</label>
 
-            <Select.Root>
-                <Select.Trigger className="bg-zinc-900 py-3 px-4 rounded text-sm text-zinc-500 flex items-center justify-between">
-                  <Select.Value placeholder="Qual o game que deseja jogar?" />
-                  <Select.Icon>
-                    <CaretDown />
-                  </Select.Icon>
-                </Select.Trigger>
-
-                <Select.Portal>
-                  <Select.Content className="overflow-hidden bg-zinc-900 rounded text-zinc-500 shadow-md">
-                    <Select.ScrollUpButton className="h-5 flex items-center justify-center">
-                      <CaretUp />
-                    </Select.ScrollUpButton>
-
-                    <Select.Viewport className="p-1">
-
-                        { games.map(game => {
-                          return(
-                            <Select.Item
-                              key={game.id}
-                              value={game.id}
-                              className="relative h-10 py-3 pl-4 pr-3 rounded hover:bg-zinc-800"
-                            >
-                              <Select.ItemText>{game.title}</Select.ItemText>
-                              
-                              <Select.ItemIndicator>
-                                <Check className="absolute h-10 left-0 top-1" />
-                              </Select.ItemIndicator>
-                            </Select.Item>
-                          );
-                        }) }
-
-                    </Select.Viewport>
-
-                    <Select.ScrollDownButton>
-                      <CaretDown />
-                    </Select.ScrollDownButton>
-                  </Select.Content>
-                </Select.Portal>
-            </Select.Root>
+            <Select data={games} />
           </div>
 
           <div className="flex flex-col gap-2">
