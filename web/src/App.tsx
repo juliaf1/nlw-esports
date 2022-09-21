@@ -55,7 +55,9 @@ function App() {
 
       <Dialog.Root>
         <CreateAdBanner />
-        <CreateAdModal />
+        <CreateAdModal
+          games={ games.map(game => { return { id: game.id, title: game.title } }) }
+        />
       </Dialog.Root>
     </div>
   )

@@ -5,7 +5,14 @@ import { GameController, Check, CaretUp, CaretDown } from 'phosphor-react';
 
 import { Input } from './Form/Input';
 
-export function CreateAdModal() {
+interface CreateAdProps {
+  games: {
+    id: string;
+    title: string;
+  }[];
+};
+
+export function CreateAdModal({ games }: CreateAdProps) {
   return(
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
@@ -26,26 +33,27 @@ export function CreateAdModal() {
                 </Select.Trigger>
 
                 <Select.Portal>
-                  <Select.Content className="overflow-hidden bg-zinc-900 rounded text-zinc-500 shadow-md">
+                  <Select.Content className=" bg-zinc-900 rounded text-zinc-500 shadow-md">
+                    <Select.ScrollUpButton>
+                      <CaretUp />
+                    </Select.ScrollUpButton>
+
                     <Select.Viewport>
-                        <Select.ScrollUpButton>
-                          <CaretUp />
-                        </Select.ScrollUpButton>
 
-                        <Select.Item value="Rumbleverse" className="h-10 py-3 px-4 hover:bg-zinc-800">
-                          <Select.ItemText>Rumbleverse</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
+                        { games.map(game => {
+                          return(
+                            <Select.Item key={game.id} value={game.title} className="h-10 py-3 px-4 hover:bg-zinc-800">
+                              <Select.ItemText>{game.title}</Select.ItemText>
+                              <Select.ItemIndicator />
+                            </Select.Item>
+                          );
+                        }) }
 
-                        <Select.Item value="Doja 2" className="h-10 py-3 px-4 hover:bg-zinc-800">
-                          <Select.ItemText>Doja 2</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
-
-                        <Select.ScrollDownButton>
-                          <CaretDown />
-                        </Select.ScrollDownButton>
                     </Select.Viewport>
+
+                    <Select.ScrollDownButton>
+                      <CaretDown />
+                    </Select.ScrollDownButton>
                   </Select.Content>
                 </Select.Portal>
             </Select.Root>
