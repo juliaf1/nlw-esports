@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
@@ -25,6 +25,10 @@ export function CreateAdModal() {
       .then(data => setGames(data))
   }, []);
 
+  function handleCreateAd(event: FormEvent) {
+    event.preventDefault();
+  };
+
   return(
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
@@ -32,7 +36,7 @@ export function CreateAdModal() {
       <Dialog.Content className="bg-[#2A2634] fixed py-8 px-10 rounded-lg w-[480px] text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-black/25">
         <Dialog.Title className="text-3xl font-black">Publique um anúncio</Dialog.Title>
 
-        <form className="mt-8 flex flex-col gap-4">
+        <form onSubmit={handleCreateAd} className="mt-8 flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="game" className="font-semibold">Qual o game?</label>
 
@@ -42,6 +46,7 @@ export function CreateAdModal() {
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="font-semibold">Seu nome (ou nickname)</label>
             <Input
+              name="name"
               id="name"
               placeholder="Como te chamam dentro do game?"
             />
@@ -52,6 +57,7 @@ export function CreateAdModal() {
               <label htmlFor="yearsPlaying" className="font-semibold">Joga há quantos anos?</label>
               <Input
                 type="number"
+                name="yearsPlaying"
                 id="yearsPlaying"
                 placeholder="Tudo bem ser ZERO"
               />
@@ -60,6 +66,7 @@ export function CreateAdModal() {
             <div className="flex flex-col gap-2">
               <label htmlFor="discord" className="font-semibold">Seu Discord</label>
               <Input
+                name="discord"
                 id="discord"
                 placeholder="Usuário#0000"
               />
@@ -100,11 +107,13 @@ export function CreateAdModal() {
               <div className="grid grid-cols-2 gap-1">
                 <Input
                   type="time"
+                  name="hourStart"
                   id="hourStart"
                   placeholder="De"
                 />
                 <Input
                   type="time"
+                  name="hourEnd"
                   id="hourEnd"
                   placeholder="Até"
                 />
@@ -112,14 +121,14 @@ export function CreateAdModal() {
             </div>
           </div>
 
-          <div className="mt-2 flex items-center gap-2 text-sm">
+          <label className="mt-2 flex items-center gap-2 text-sm">
             <Checkbox.Root className="w-6 h-6 p-1 rounded bg-zinc-900">
               <Checkbox.Indicator>
                 <Check className="w-4 h-4 text-emerald-400" />
               </Checkbox.Indicator>
             </Checkbox.Root>
             Costumo me conectar ao chat de voz
-          </div>
+          </label>
 
           <footer className="mt-4 flex justify-end gap-4">
             <Dialog.Close className="bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600">Cancelar</Dialog.Close>
