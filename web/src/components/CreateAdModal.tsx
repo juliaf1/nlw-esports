@@ -44,7 +44,7 @@ export function CreateAdModal({ games }: CreateAdProps) {
                           return(
                             <Select.Item
                               key={game.id}
-                              value={game.title}
+                              value={game.id}
                               className="relative h-10 py-3 pl-4 pr-3 rounded hover:bg-zinc-800"
                             >
                               <Select.ItemText>{game.title}</Select.ItemText>
