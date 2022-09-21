@@ -1,11 +1,11 @@
 import { useState, useEffect, FormEvent } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { GameController, Check } from 'phosphor-react';
 
 import { Input } from './Form/Input';
 import { Select } from './Form/Select';
+import { ToggleGroup } from './Form/ToggleGroup';
 
 const API_URL = 'http://localhost:3333'
 
@@ -15,7 +15,6 @@ interface Game {
 };
 
 export function CreateAdModal() {
-  const days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
   const [games, setGames] = useState<Game[]>([]);
   const [weekDays, setWeekDays] = useState<string[]>([]);
 
@@ -77,28 +76,10 @@ export function CreateAdModal() {
             <div className="flex flex-col gap-2">
               <label htmlFor="weekDays" className="font-semibold">Quando costumar jogar?</label>
 
-              <ToggleGroup.Root
-                type="multiple"
-                className="grid grid-cols-4 gap-2"
-                value={weekDays}
-                onValueChange={setWeekDays}
-              >
-                {
-                  days.map((day, index) => {
-                    const id = index.toString();
-                    return(
-                      <ToggleGroup.Item
-                        key={id}
-                        value={id}
-                        title={day}
-                        className={`w-8 h-8 rounded ${weekDays.includes(id) ? 'bg-violet-500' : 'bg-zinc-900'}`}
-                      >
-                        {day[0]}
-                      </ToggleGroup.Item>
-                    );
-                  })
-                }
-              </ToggleGroup.Root>
+              <ToggleGroup
+                data={["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]}
+                onDataToggle={setWeekDays}
+              />
             </div>
           
             <div className="flex flex-col gap-2 flex-1">
