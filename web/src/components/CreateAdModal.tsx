@@ -33,18 +33,25 @@ export function CreateAdModal({ games }: CreateAdProps) {
                 </Select.Trigger>
 
                 <Select.Portal>
-                  <Select.Content className=" bg-zinc-900 rounded text-zinc-500 shadow-md">
-                    <Select.ScrollUpButton>
+                  <Select.Content className="overflow-hidden bg-zinc-900 rounded text-zinc-500 shadow-md">
+                    <Select.ScrollUpButton className="h-5 flex items-center justify-center">
                       <CaretUp />
                     </Select.ScrollUpButton>
 
-                    <Select.Viewport>
+                    <Select.Viewport className="p-1">
 
                         { games.map(game => {
                           return(
-                            <Select.Item key={game.id} value={game.title} className="h-10 py-3 px-4 hover:bg-zinc-800">
+                            <Select.Item
+                              key={game.id}
+                              value={game.title}
+                              className="relative h-10 py-3 pl-4 pr-3 rounded hover:bg-zinc-800"
+                            >
                               <Select.ItemText>{game.title}</Select.ItemText>
-                              <Select.ItemIndicator />
+                              
+                              <Select.ItemIndicator>
+                                <Check className="absolute h-10 left-0 top-1" />
+                              </Select.ItemIndicator>
                             </Select.Item>
                           );
                         }) }
