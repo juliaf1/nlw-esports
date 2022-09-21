@@ -18,6 +18,7 @@ export function CreateAdModal() {
   const [games, setGames] = useState<Game[]>([]);
   const [game, setGame] = useState<String>("");
   const [weekDays, setWeekDays] = useState<string[]>([]);
+  const [useVoiceChannel, setUseVoiceChannel] = useState(false);
 
   useEffect(() => {
     fetch(API_URL + '/games')
@@ -27,6 +28,14 @@ export function CreateAdModal() {
 
   function handleCreateAd(event: FormEvent) {
     event.preventDefault();
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const data = Object.fromEntries(formData);
+
+    console.log(data);
+    console.log(weekDays);
+    console.log(game);
+    console.log(useVoiceChannel);
   };
 
   return(
@@ -107,7 +116,11 @@ export function CreateAdModal() {
           </div>
 
           <label className="mt-2 flex items-center gap-2 text-sm">
-            <Checkbox.Root className="w-6 h-6 p-1 rounded bg-zinc-900">
+            <Checkbox.Root
+              className="w-6 h-6 p-1 rounded bg-zinc-900"
+              checked={useVoiceChannel}
+              onCheckedChange={(checked) => setUseVoiceChannel(!!checked)}
+            >
               <Checkbox.Indicator>
                 <Check className="w-4 h-4 text-emerald-400" />
               </Checkbox.Indicator>
