@@ -1,16 +1,16 @@
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, CaretUp, CaretDown } from 'phosphor-react';
 
+import { Game as Item } from '../CreateAdModal';
+
 interface ItemListProps {
-  data: {
-    id: string;
-    title: string;
-  }[];
+  onDataSelect: (id: string) => void;
+  data: Item[];
 }
 
-export function Select({ data }: ItemListProps) {
+export function Select({ data, onDataSelect }: ItemListProps) {
   return(
-    <SelectPrimitive.Root>
+    <SelectPrimitive.Root onValueChange={onDataSelect}>
       <SelectPrimitive.Trigger className="bg-zinc-900 py-3 px-4 rounded text-sm text-zinc-500 flex items-center justify-between">
         <SelectPrimitive.Value placeholder="Qual o game que deseja jogar?" />
         <SelectPrimitive.Icon>

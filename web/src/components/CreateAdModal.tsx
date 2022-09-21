@@ -9,13 +9,14 @@ import { ToggleGroup } from './Form/ToggleGroup';
 
 const API_URL = 'http://localhost:3333'
 
-interface Game {
+export interface Game {
   id: string;
   title: string;
 };
 
 export function CreateAdModal() {
   const [games, setGames] = useState<Game[]>([]);
+  const [game, setGame] = useState<String>("");
   const [weekDays, setWeekDays] = useState<string[]>([]);
 
   useEffect(() => {
@@ -39,7 +40,10 @@ export function CreateAdModal() {
           <div className="flex flex-col gap-2">
             <label htmlFor="game" className="font-semibold">Qual o game?</label>
 
-            <Select data={games} />
+            <Select
+              data={games}
+              onDataSelect={setGame}
+            />
           </div>
 
           <div className="flex flex-col gap-2">
