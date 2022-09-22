@@ -1,8 +1,11 @@
 import { View, Text, Modal, ModalProps, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { CheckCircle } from 'phosphor-react-native';
 
 import { THEME } from '../../theme';
 import { styles } from "./styles";
+
+import { Heading } from '../Heading';
 
 interface Props extends ModalProps {
   discord: string;
@@ -29,9 +32,27 @@ export function DuoMatch({ discord, closeModal, ...rest }: Props) {
             />
           </TouchableOpacity>
 
-          <Text style={styles.discord}>
-            {discord}
+          <CheckCircle
+            size={64}
+            color={THEME.COLORS.SUCCESS}
+            weight="bold"
+          />
+
+          <Heading
+            title="Let's play"
+            subtitle="Agora é só começar a jogar"
+            style={ { alignItems: 'center', marginTop: 24 } }
+          />
+
+          <Text style={styles.label}>
+            Adicione o Discord
           </Text>
+
+          <TouchableOpacity style={styles.discordButton}>
+            <Text style={styles.discord}>
+              {discord}
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>

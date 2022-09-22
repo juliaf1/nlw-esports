@@ -15,7 +15,23 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
+    padding: 24,
+  },
+  label: {
+    color: THEME.COLORS.TEXT,
+    fontSize: THEME.FONT_SIZE.MD,
+    fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+    marginTop: 24,
+    marginBottom: 8,
+  },
+  discordButton: {
+    width: 231,
+    height: 48,
+    backgroundColor: THEME.COLORS.BACKGROUND_900,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+    marginBottom: 8,
   },
   discord: {
     color: THEME.COLORS.TEXT,
@@ -24,6 +40,5 @@ export const styles = StyleSheet.create({
   },
   close: {
     alignSelf: 'flex-end',
-    // margin: 16
   },
 });
