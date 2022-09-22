@@ -3,6 +3,7 @@
 
 import express from 'express';
 import cors from 'cors';
+import config from './config';
 
 import { createAd, getDiscord, listAds } from './controllers/ads_controller';
 import { listGames } from './controllers/games_controller';
@@ -19,6 +20,6 @@ app.get('/ads/:id/discord', getDiscord);
 
 app.post('/games/:id/ads', createAd);
 
-app.listen(3333, () => {
+app.listen(config.PORT, () => {
     console.log('Up on 3333');
 });
