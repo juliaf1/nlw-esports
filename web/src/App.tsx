@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import * as Dialog from '@radix-ui/react-dialog';
 
 import './styles/main.css';
 import logoImg from './assets/logo.svg';
+
+import { api } from './lib/api';
 
 import { GameCard } from './components/GameCard';
 import { CreateAdBanner } from './components/CreateAdBanner';
@@ -12,8 +13,6 @@ import { CreateAdModal } from './components/CreateAdModal';
 
 // useEffect(() => {}, []); useEffect syntax structure
 // parameters: result, [list of useStates that trigger that result]
-
-const API_URL = 'http://localhost:3333'
 
 interface Game {
   id: string;
@@ -28,7 +27,7 @@ function App() {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    axios.get(API_URL + '/games')
+    api.get('/games')
       .then(res => setGames(res.data));
   }, []) // empty array = result is triggered one time!
 
