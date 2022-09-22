@@ -30,7 +30,7 @@ export function Game() {
     navigation.goBack();
   };
 
-  function handleConnect(id: string) {
+  async function handleConnect(id: string) {
     fetch(`${BASE_URL}/ads/${id}/discord`)
       .then(res => res.json())
       .then(data => setDiscord(data.discord));
