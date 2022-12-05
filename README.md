@@ -2,7 +2,7 @@
 
 [PTBR](#português) | [EN](#english)
 
-<img alt="dev.finances" src="https://github.com/juliaf1/nlw-esports/blob/main/web/src/assets/logo.svg" width="50%">
+<img src="https://github.com/juliaf1/nlw-esports/blob/main/web/src/assets/logo.svg" width="50%">
 </div>
 
 #### Português
