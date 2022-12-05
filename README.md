@@ -35,7 +35,7 @@ Você pode acessar a aplicação web [aqui](https://nlw-esports-web-virid.vercel
 <br/>
 
 #### English
-## 🚀 Tecnologias
+## 🚀 Technologies
 
 This project includes a Node server and mobile and web applications. The project was developed using the following technologies:
 
@@ -45,7 +45,7 @@ This project includes a Node server and mobile and web applications. The project
 - HTML/CSS
 - Typescript
 
-## 🎯 Projeto
+## 🎯 Project
 
 eSports is an application for gamers, where it is possible to view and create ads for gaming in pairs.
 
